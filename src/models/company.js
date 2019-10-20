@@ -1,11 +1,11 @@
 // import required dependencies
-const uuidv4 = require('uuid/v4');
+// const uuidv4 = require('uuid/v4');
 
 // import required files
 const conn = require('../configs/db')
 console.log('model')
 module.exports = {
-    readJobs: function(){
+    readCompany: function(){
         return new Promise( function(resolve, reject){
             conn.query('SELECT * FROM company', function(err, result){
             //conn.query('SELECT * FROM jobs', function(err,result){
@@ -18,7 +18,7 @@ module.exports = {
         })
     },
 
-    createJobs: function(data_company){
+    createCompany: function(data_company){
         return new Promise( function(resolve, reject){
             conn.query('INSERT INTO company SET ?', data_company, function(err, result){
                 if (!err) {
