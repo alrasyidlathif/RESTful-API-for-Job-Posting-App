@@ -7,7 +7,7 @@ const jobs = require('./routes/jobs')
 //const jobsRead = require('./routes/jobsRead')
 //const jobsUpdate = require('./routes/jobsUpdate')
 //const jobsDelete = require('./routes/jobsDelete')
-// console.log('index')
+console.log('index')
 // create used routes
 Route
 	.use('/jobs', jobs)
