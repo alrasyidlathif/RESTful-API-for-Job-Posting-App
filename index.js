@@ -4,14 +4,14 @@ const Route = express.Router()
 
 // import required files
 const jobs = require('./routes/jobs')
-//const jobsRead = require('./routes/jobsRead')
+const company = require('./routes/company')
 //const jobsUpdate = require('./routes/jobsUpdate')
 //const jobsDelete = require('./routes/jobsDelete')
 // console.log('index')
 // create used routes
 Route
 	.use('/jobs', jobs)
-	//.use('/jobs-read', jobsRead)
+	.use('/company', company)
   	//.use('/jobs-update', jobsUpdate)
   	//.use('/jobs-delete', jobsDelete)
 

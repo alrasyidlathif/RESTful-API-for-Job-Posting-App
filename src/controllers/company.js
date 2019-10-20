@@ -2,11 +2,11 @@
 const uuidv4 = require('uuid/v4');
 
 // import required files
-const jobModels = require('../models/jobs')
+const companyModels = require('../models/company')
 console.log('controller')
 module.exports = {
-    readJobs: function(req, res){
-        jobModels.readJobs()
+    readCompany: function(req, res){
+        companyModels.readCompany()
         .then( function(result){
             res.json(result)
         })
@@ -15,29 +15,17 @@ module.exports = {
         })
     },
 
-    createJobs: function(req, res){
-        const { name, description, category, salary, location, company } = req.body
+    createCompany: function(req, res){
+        const { name, logo, location, description } = req.body
         const id = uuidv4();
-        const data_jobs = {
+        const data_company = {
             id,
             name,
-            description,
-            category_id: '',
-            salary,
+            logo,
             location,
-            company_id: '',
-            date_added: new Date(),
-            date_updated: new Date()
+            description,
         }
-        const data_category = {
-            id: '',
-            name: category
-        }
-        const data_company = {
-            id: '',
-            name: company
-        }
-        jobModels.createJobs(data_jobs, data_category, data_company)
+        companyModels.createCompany(data_company)
         .then( function(result){
             res.json(result)
         })
@@ -46,7 +34,7 @@ module.exports = {
         })
     },
 
-    updateJobs: function(req, res){
+    updateCompany: function(req, res){
         const productid = req.params.productid
         const { name, categoryid } = req.body
         const data = {
@@ -54,7 +42,7 @@ module.exports = {
             categoryid,
             updated_at: new Date()
         }
-        jobModels.updateJobs(data, productid)
+        companyModels.updateCompany(data, productid)
         .then( function(result){
             res.json(result)
         })
@@ -63,9 +51,9 @@ module.exports = {
         })
     },
 
-    deleteJobs: function(req, res){
+    deleteCompany: function(req, res){
         const productid = req.params.productid
-        jobModels.deleteJobs(productid)
+        companyModels.deleteCompany(productid)
         .then( function(result){
             res.json(result)
         })
