@@ -1,0 +1,23 @@
+{
+  "name": "task-1",
+  "version": "1.0.0",
+  "description": "Job Posting App",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lathifinch/Task-1-Arka.git"
+  },
+  "author": "Lathif Al Rasyid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lathifinch/Task-1-Arka/issues"
+  },
+  "homepage": "https://github.com/lathifinch/Task-1-Arka#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
