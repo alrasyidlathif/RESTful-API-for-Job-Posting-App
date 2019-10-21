@@ -42,13 +42,19 @@ module.exports = {
         })
     },
 
-    deleteJobs: function(productid){
+    deleteCompany: function(companyId){
         return new Promise( function(resolve, reject){
-            conn.query('DELETE FROM product WHERE productid = ?', productid, function(err, result){
-                if (!err) {
-                    resolve(result)
-                } else {
+            conn.query('DELETE FROM company WHERE id = ?', companyId, function(err, result){
+                if (err) {
                     reject(new Error(err))
+                } else {
+                    conn.query('DELETE FROM jobs WHERE company_id = ?', companyId, function(err, result){
+                        if (err) {
+                            reject(new Error(err))
+                        } else {
+                            resolve('success delete company and jobs relate to them.')
+                        }
+                    })
                 }
             })
         })

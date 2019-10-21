@@ -53,8 +53,8 @@ module.exports = {
     },
 
     deleteCompany: function(req, res){
-        const productid = req.params.productid
-        companyModels.deleteCompany(productid)
+        const companyId = req.params.companyId
+        companyModels.deleteCompany(companyId)
         .then( function(result){
             res.json(result)
         })
