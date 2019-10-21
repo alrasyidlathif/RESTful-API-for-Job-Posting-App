@@ -55,14 +55,24 @@ module.exports = {
 
     updateJobs: function(req, res){
         const jobsId = req.params.jobsId
-        console.log(req.body)
-        const { name, categoryid } = req.body
-        const data = {
-            name,
-            categoryid,
-            updated_at: new Date()
+        console.log('create 1')
+        let data = {};
+        for (var o in req.body){
+            console.log(o)
+            console.log(req.body[o])
+            data[o] = req.body[o]
         }
-        jobModels.updateJobs(data, productid)
+        console.log('create 2')
+        // const { name, categoryid } = req.body
+        // const data = {
+        //     name,
+        //     categoryid,
+        //     updated_at: new Date()
+        // }
+        data['date_updated'] = new Date()
+        console.log('create 3')
+        let update_data = data;
+        jobModels.updateJobs(update_data, jobsId)
         .then( function(result){
             res.json(result)
         })
