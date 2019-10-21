@@ -10,7 +10,8 @@ module.exports = {
         // get data search from url
         const name = req.query.name
         const company = req.query.company
-        const search_data = {name, company}
+        const order = req.query.order
+        const search_data = {name, company, order}
         
         console.log(search_data)
         // console.log(name)
@@ -53,7 +54,8 @@ module.exports = {
     },
 
     updateJobs: function(req, res){
-        const productid = req.params.productid
+        const jobsId = req.params.jobsId
+        console.log(req.body)
         const { name, categoryid } = req.body
         const data = {
             name,
