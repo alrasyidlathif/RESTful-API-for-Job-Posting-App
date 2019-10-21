@@ -185,9 +185,9 @@ module.exports = {
         })
     },
 
-    deleteJobs: function(productid){
+    deleteJobs: function(jobsId){
         return new Promise( function(resolve, reject){
-            conn.query('DELETE FROM product WHERE productid = ?', productid, function(err, result){
+            conn.query('DELETE FROM jobs WHERE id = ?', jobsId, function(err, result){
                 if (!err) {
                     resolve(result)
                 } else {

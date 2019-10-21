@@ -82,8 +82,8 @@ module.exports = {
     },
 
     deleteJobs: function(req, res){
-        const productid = req.params.productid
-        jobModels.deleteJobs(productid)
+        const jobsId = req.params.jobsId
+        jobModels.deleteJobs(jobsId)
         .then( function(result){
             res.json(result)
         })
