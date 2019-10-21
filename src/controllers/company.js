@@ -35,14 +35,15 @@ module.exports = {
     },
 
     updateCompany: function(req, res){
-        const productid = req.params.productid
-        const { name, categoryid } = req.body
-        const data = {
-            name,
-            categoryid,
-            updated_at: new Date()
+        const companyId = req.params.companyId
+        let data = {};
+        for (var o in req.body){
+            console.log(o)
+            console.log(req.body[o])
+            data[o] = req.body[o]
         }
-        companyModels.updateCompany(data, productid)
+        
+        companyModels.updateCompany(data, companyId)
         .then( function(result){
             res.json(result)
         })

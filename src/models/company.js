@@ -30,9 +30,9 @@ module.exports = {
         })
     },
 
-    updateJobs: function(data, productid){
+    updateCompany: function(data, companyId){
         return new Promise( function(resolve, reject){
-            conn.query('UPDATE product SET ? WHERE productid = ?', [data, productid], function(err, result){
+            conn.query('UPDATE company SET ? WHERE id = ?', [data, companyId], function(err, result){
                 if (!err) {
                     resolve(result)
                 } else {

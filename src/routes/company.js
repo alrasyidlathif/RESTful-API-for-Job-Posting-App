@@ -8,7 +8,7 @@ console.log('route')
 Route
   	.get('/', companyController.readCompany)
   	.post('/', companyController.createCompany)
-  	//.patch('/:jobsId', jobsController.updateJobs)
-  	//.delete('/:jobsId', jobsController.deleteJobs)
+  	.patch('/:companyId', companyController.updateCompany)
+  	.delete('/:companyId', companyController.deleteCompany)
 
 module.exports = Route
