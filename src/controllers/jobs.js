@@ -16,7 +16,7 @@ module.exports = {
     },
 
     createJobs: function(req, res){
-        const { name, description, category, salary, location, company } = req.body
+        const { name, description, category, salary, location, company_id } = req.body
         const id = uuidv4();
         const data_jobs = {
             id,
@@ -25,7 +25,7 @@ module.exports = {
             category_id: '',
             salary,
             location,
-            company_id: '',
+            company_id,
             date_added: new Date(),
             date_updated: new Date()
         }
@@ -33,11 +33,7 @@ module.exports = {
             id: '',
             name: category
         }
-        const data_company = {
-            id: '',
-            name: company
-        }
-        jobModels.createJobs(data_jobs, data_category, data_company)
+        jobModels.createJobs(data_jobs, data_category)
         .then( function(result){
             res.json(result)
         })
