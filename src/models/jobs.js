@@ -5,21 +5,53 @@ const uuidv4 = require('uuid/v4');
 const conn = require('../configs/db')
 console.log('model')
 module.exports = {
-    readJobs: function(){
+    readJobs: function(search_data){
         console.log('ENTER TO readJobs FUNCTION..')
         return new Promise( function(resolve, reject){
-            //conn.query('SELECT * FROM jobs', function(err, result){
-            conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id', function(err, result){
-            //conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id', function(err, result){
-            //conn.query('SELECT j.*, cat.*, com.* FROM jobs j INNER JOIN category cat ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id', function(err,result){
-                console.log('ENTER TO readJobs QUERY..')
-                console.log(result)
-                if (!err) {
-                    resolve(result)
-                } else {
-                    reject(new Error(err))
-                }
-            })
+
+            if (search_data.name != null && search_data.company != null){
+                const data = [search_data.name, search_data.company];
+                conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE j.name LIKE "%"?"%" AND com.name LIKE "%"?"%"', data, function(err, result){
+                    if (!err) {
+                        resolve(result)
+                    } else {
+                        reject(new Error(err))
+                    }
+                });
+            } else
+            if (search_data.name != null){
+                const data = [search_data.name];
+                conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE j.name LIKE "%"?"%"', data, function(err, result){
+                    if (!err) {
+                        resolve(result)
+                    } else {
+                        reject(new Error(err))
+                    }
+                })
+            } else
+            if (search_data.company != null){
+                const data = [search_data.company];
+                conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE com.name LIKE "%"?"%"', data, function(err, result){
+                    if (!err) {
+                        resolve(result)
+                    } else {
+                        reject(new Error(err))
+                    }
+                })
+            } else {
+                //conn.query('SELECT * FROM jobs', function(err, result){
+                conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id', function(err, result){
+                //conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id', function(err, result){
+                //conn.query('SELECT j.*, cat.*, com.* FROM jobs j INNER JOIN category cat ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id', function(err,result){
+                    console.log('ENTER TO readJobs QUERY..')
+                    console.log(result)
+                    if (!err) {
+                        resolve(result)
+                    } else {
+                        reject(new Error(err))
+                    }
+                })
+            }
         })
     },
 

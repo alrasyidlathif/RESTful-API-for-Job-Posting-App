@@ -6,7 +6,17 @@ const jobModels = require('../models/jobs')
 console.log('controller')
 module.exports = {
     readJobs: function(req, res){
-        jobModels.readJobs()
+
+        // get data search from url
+        const name = req.query.name
+        const company = req.query.company
+        const search_data = {name, company}
+        
+        console.log(search_data)
+        // console.log(name)
+        // console.log(company)
+
+        jobModels.readJobs(search_data)
         .then( function(result){
             res.json(result)
         })
