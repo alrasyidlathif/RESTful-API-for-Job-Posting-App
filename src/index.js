@@ -8,6 +8,7 @@ const Route = express.Router()
 const jobs = require('./routes/jobs')
 const company = require('./routes/company')
 const signup = require('./routes/signup')
+const login = require('./routes/login')
 //const jobsUpdate = require('./routes/jobsUpdate')
 //const jobsDelete = require('./routes/jobsDelete')
 console.log('index')
@@ -16,6 +17,6 @@ Route
 	.use('/jobs', jobs)
 	.use('/company', company)
   	.use('/signup', signup)
-  	//.use('/jobs-delete', jobsDelete)
+  	.use('/login', login)
 
 module.exports = Route

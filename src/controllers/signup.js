@@ -9,9 +9,9 @@ module.exports = {
 
     signupUser: function(req, res){
 
-        // const username = req.body.username
-        // const password = req.body.password
-        // const email = req.body.email
+        const username = req.body.username
+        const password = req.body.password
+        const email = req.body.email
 
         // const validation_data = [
             // check('username').isAlphanumeric(),
