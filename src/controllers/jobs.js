@@ -9,8 +9,8 @@ module.exports = {
 
         // get page, if null then 1
         let page = 1;
-        if (req.params.page != null){
-            page = req.params.page;
+        if (req.query.page != null){
+            page = req.query.page;
         }
 
         console.log('page ' + page)

@@ -6,7 +6,7 @@ const Route = express.Router()
 const jobsController = require('../controllers/jobs')
 console.log('route')
 Route
-  	.get('/:page', jobsController.readJobs)
+  	// .get('/:page', jobsController.readJobs)
   	.get('/', jobsController.readJobs)
   	.post('/', jobsController.createJobs)
   	.patch('/:jobsId', jobsController.updateJobs)

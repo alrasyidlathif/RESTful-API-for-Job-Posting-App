@@ -7,6 +7,7 @@ const Route = express.Router()
 // import required files
 const jobs = require('./routes/jobs')
 const company = require('./routes/company')
+const signup = require('./routes/signup')
 //const jobsUpdate = require('./routes/jobsUpdate')
 //const jobsDelete = require('./routes/jobsDelete')
 console.log('index')
@@ -14,7 +15,7 @@ console.log('index')
 Route
 	.use('/jobs', jobs)
 	.use('/company', company)
-  	//.use('/jobs-update', jobsUpdate)
+  	.use('/signup', signup)
   	//.use('/jobs-delete', jobsDelete)
 
 module.exports = Route
