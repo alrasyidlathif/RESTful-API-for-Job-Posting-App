@@ -5,9 +5,22 @@ const uuidv4 = require('uuid/v4');
 const conn = require('../configs/db')
 console.log('model')
 module.exports = {
-    readJobs: function(search_data){
+    readJobs: function(search_data, page){
         console.log('ENTER TO readJobs FUNCTION..')
         return new Promise( function(resolve, reject){
+
+            // get pagefrom and pageto by page
+            let offset = 0;
+            const limit = 5;
+            if (page != 1){
+                offset = 5*(page-1);
+            }
+
+            console.log('===PAGE DEF===')
+            console.log('page ' + page)
+            console.log('limit ' + limit)
+            console.log('offset ' + offset)
+            console.log('===PAGE DEF===')
 
             console.log(search_data.order)
             let order = 'NULL'
@@ -25,7 +38,7 @@ module.exports = {
 
             if (search_data.name != null && search_data.company != null){
                 const data = [search_data.name, search_data.company];
-                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE j.name LIKE "%"?"%" AND com.name LIKE "%"?"%" ORDER BY ${order}`, data, function(err, result){
+                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE j.name LIKE "%"?"%" AND com.name LIKE "%"?"%" ORDER BY ${order} LIMIT ${limit} OFFSET ${offset}`, data, function(err, result){
                     if (!err) {
                         resolve(result)
                     } else {
@@ -35,7 +48,7 @@ module.exports = {
             } else
             if (search_data.name != null){
                 const data = [search_data.name];
-                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE j.name LIKE "%"?"%" ORDER BY ${order}`, data, function(err, result){
+                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE j.name LIKE "%"?"%" ORDER BY ${order} LIMIT ${limit} OFFSET ${offset}`, data, function(err, result){
                     if (!err) {
                         resolve(result)
                     } else {
@@ -45,7 +58,7 @@ module.exports = {
             } else
             if (search_data.company != null){
                 const data = [search_data.company];
-                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE com.name LIKE "%"?"%" ORDER BY ${order}`, data, function(err, result){
+                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id WHERE com.name LIKE "%"?"%" ORDER BY ${order} LIMIT ${limit} OFFSET ${offset}`, data, function(err, result){
                     if (!err) {
                         resolve(result)
                     } else {
@@ -59,7 +72,7 @@ module.exports = {
                 // }
 
                 //conn.query('SELECT * FROM jobs', function(err, result){
-                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id ORDER BY ${order}`, function(err, result){
+                conn.query(`SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, com.name AS company, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id ORDER BY ${order} LIMIT ${limit} OFFSET ${offset}`, function(err, result){
                 //conn.query('SELECT j.id, j.name AS jobs, j.description, cat.name AS category, j.salary, j.location, j.date_added, j.date_updated FROM category cat INNER JOIN jobs j ON j.category_id = cat.id', function(err, result){
                 //conn.query('SELECT j.*, cat.*, com.* FROM jobs j INNER JOIN category cat ON j.category_id = cat.id INNER JOIN company com ON j.company_id = com.id', function(err,result){
                     console.log('ENTER TO readJobs QUERY..')

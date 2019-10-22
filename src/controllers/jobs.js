@@ -7,6 +7,14 @@ console.log('controller')
 module.exports = {
     readJobs: function(req, res){
 
+        // get page, if null then 1
+        let page = 1;
+        if (req.params.page != null){
+            page = req.params.page;
+        }
+
+        console.log('page ' + page)
+
         // get data search from url
         const name = req.query.name
         const company = req.query.company
@@ -17,7 +25,7 @@ module.exports = {
         // console.log(name)
         // console.log(company)
 
-        jobModels.readJobs(search_data)
+        jobModels.readJobs(search_data, page)
         .then( function(result){
             res.json(result)
         })
