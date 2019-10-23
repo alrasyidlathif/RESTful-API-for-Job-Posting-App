@@ -1,4 +1,6 @@
 // import required dependencies
+const configs = require('../configs/configs')
+const jwtSecret = configs.jwtSecret
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // const uuidv4 = require('uuid/v4');
@@ -12,7 +14,7 @@ module.exports = {
     loginUser: function(req, res){
 
         const username = req.body.username;
-        const password = req.body.username;
+        const password = req.body.password;
 
         if (username == null || password == null){
             res.json({'error': 'username or password cannot be empty'})
@@ -26,21 +28,46 @@ module.exports = {
         loginModels.loginUser(data_login)
         .then( function(result){
 
-            if (bcrypt.compare(data_login.password, result.hash)){
-                console.log('give token')
-                const token = jwt.sign({ username }, 'secretKey');
-                console.log(token)
-                console.log('login 3')
 
-                res.json(JSON.stringify({ authorization: token }));
-                console.log('login 4')
+            console.log(result)
+            console.log(result.username)
+            console.log(result.hash)
+            console.log('login 3')
 
-            } else {
-                reject(new Error('wrong password'))
+            compareInfo = bcrypt.compareSync(data_login.password, result.hash);
+
+            // bcrypt.compare(data_login.password, result.hash, function(err, compareInfo){
+
+            // console.log(err)
+            console.log(data_login)
+            console.log('login 4')
+            if (!compareInfo) {
+                res.send({msg: 'wrong password'})
             }
 
-            // res.json(result)
+            console.log('give token')
+            const token = jwt.sign({ data_login }, jwtSecret, { expiresIn: 60 }); // 60 second
+            console.log(token)
+            console.log('login 5')
+            // res.json(JSON.stringify({ authorization: token }));
+            res.json({ authorization: token });
+            console.log('login 6')
+
+            // })
+
+            // res.send()
+
         })
+
+        //     {
+                
+
+        //     } else {
+        //         reject(new Error('wrong password'))
+        //     }
+
+        //     // res.json(result)
+        // })
         .catch( function(err){
             console.log(err)
         })

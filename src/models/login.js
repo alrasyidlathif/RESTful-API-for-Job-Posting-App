@@ -28,8 +28,8 @@ module.exports = {
                         console.log(hash)
 
                         const data = {
-                            username,
-                            hash
+                            'username': username,
+                            'hash': hash
                         }
 
                         resolve(data);

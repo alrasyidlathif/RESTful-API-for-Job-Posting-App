@@ -4,13 +4,25 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const configs = require('./src/configs/configs')
 const logger = require('morgan')
+// const passport = require('passport')
+// const redisHelper = require('./src/helpers/passport')
+
 // const session = require('express-session')
 // const redis = require('redis')
 // const redisStore = require('connect-redis')(session)
 
+// const {
+// 	clientApiKeyValidation,
+// 	isNewSessionRequired,
+// 	isAuthRequired,
+// 	generateJWTToken,
+// 	verifyToken
+// } = require('./src/helpers/authUtils');
+
 // use dependencies
 // const redisClient = redis.createClient();
 
+// main app
 const app = express()
 
 // redisClient.on('error', function(err){
@@ -29,6 +41,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 app.use(logger('dev'))
+
+// Passport Middleware
+// app.use(passport.initialize());
+// require('./src/helpers/passport')(passport);
 
 app.use('/', routerNav)
 

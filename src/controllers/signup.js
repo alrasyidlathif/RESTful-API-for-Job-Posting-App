@@ -31,24 +31,37 @@ module.exports = {
         const password = req.body.password
         const email = req.body.email
 
-        const hash = bcrypt.hashSync(password, 10);
+        bcrypt.genSalt(10, function(err, salt) {
+            if (err) {
+                res.json({msg: 'error while generating salt'})
+            }
+            bcrypt.hash(password, salt, function(err, hash) {
+                if (err) {
+                    res.json({msg: 'error while hashing password'})
+                }
 
-        // if all is valid, continue send data
-        const id = uuidv4();
-        const data_signup = {
-            id,
-            username,
-            'password': hash,
-            email,
-            date_registered: new Date()
-        }
-        signupModels.signupUser(data_signup)
-        .then( function(result){
-            res.json(result)
-        })
-        .catch( function(err){
-            console.log(err)
-        })
+                // const hash = bcrypt.hashSync(password, 10);
+
+                // if all is valid, continue send data
+                const id = uuidv4();
+                const data_signup = {
+                    id,
+                    username,
+                    'password': hash,
+                    email,
+                    date_registered: new Date()
+                }
+                signupModels.signupUser(data_signup)
+                .then( function(result){
+                    res.json(result)
+                })
+                .catch( function(err){
+                    console.log(err)
+                })
+
+            });
+        });
+
     }
 
 }
