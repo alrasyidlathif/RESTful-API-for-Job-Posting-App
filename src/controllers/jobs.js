@@ -2,8 +2,12 @@
 const uuidv4 = require('uuid/v4');
 
 // import required files
+// const redis = require('./redis')
 const jobModels = require('../models/jobs')
+const redisHelper = require('../helpers/redis')
+
 console.log('controller')
+
 module.exports = {
     readJobs: function(req, res){
 
@@ -19,14 +23,26 @@ module.exports = {
         const name = req.query.name
         const company = req.query.company
         const order = req.query.order
-        const search_data = {name, company, order}
+        const search_data = {name, company, order, page}
         
         console.log(search_data)
         // console.log(name)
         // console.log(company)
 
-        jobModels.readJobs(search_data, page)
+        jobModels.readJobs(search_data) //, page)
         .then( function(result){
+
+            let redisKey = ''
+            for (q in search_data){
+                redisKey = redisKey + q;
+                redisKey = redisKey + search_data[q]
+            }
+
+            console.log(redisKey)
+            console.log('DESIGN THE REDIS KEY')
+
+            redisHelper.client.setex(redisKey, 60, JSON.stringify(result));
+            console.log('SAVE DATA TO REDIS')
             res.json(result)
         })
         .catch( function(err){

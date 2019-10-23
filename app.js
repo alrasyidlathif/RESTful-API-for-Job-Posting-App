@@ -4,8 +4,19 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const configs = require('./src/configs/configs')
 const logger = require('morgan')
+// const session = require('express-session')
+// const redis = require('redis')
+// const redisStore = require('connect-redis')(session)
+
+// use dependencies
+// const redisClient = redis.createClient();
 
 const app = express()
+
+// redisClient.on('error', function(err){
+	// console.log('redis error: ', err);
+// });
+
 const port = configs.port
 const routerNav = require('./src/index')
 

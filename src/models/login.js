@@ -1,6 +1,6 @@
 // import required dependencies
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
 
 // import required files
 const conn = require('../configs/db')
@@ -27,18 +27,25 @@ module.exports = {
                         console.log('login 2')
                         console.log(hash)
 
-                        if (bcrypt.compare(data_login.password, hash)){
-                            console.log('give token')
-                            const token = jwt.sign({ username }, 'secretKey');
-                            console.log(token)
-                            console.log('login 3')
-
-                            resolve(JSON.stringify({ authorization: token }));
-                            console.log('login 4')
-
-                        } else {
-                            reject(new Error('wrong password'))
+                        const data = {
+                            username,
+                            hash
                         }
+
+                        resolve(data);
+
+                        // if (bcrypt.compare(data_login.password, hash)){
+                        //     console.log('give token')
+                        //     const token = jwt.sign({ username }, 'secretKey');
+                        //     console.log(token)
+                        //     console.log('login 3')
+
+                        //     resolve(JSON.stringify({ authorization: token }));
+                        //     console.log('login 4')
+
+                        // } else {
+                        //     reject(new Error('wrong password'))
+                        // }
 
                         // console.log(bcrypt.compareSync('', hash)); // true
                         // console.log(bcrypt.compareSync('', hash)); // false

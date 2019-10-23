@@ -1,4 +1,6 @@
 // import required dependencies
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 // const uuidv4 = require('uuid/v4');
 // const { check, validationResult } = require('express-validator');
 
@@ -23,7 +25,21 @@ module.exports = {
 
         loginModels.loginUser(data_login)
         .then( function(result){
-            res.json(result)
+
+            if (bcrypt.compare(data_login.password, result.hash)){
+                console.log('give token')
+                const token = jwt.sign({ username }, 'secretKey');
+                console.log(token)
+                console.log('login 3')
+
+                res.json(JSON.stringify({ authorization: token }));
+                console.log('login 4')
+
+            } else {
+                reject(new Error('wrong password'))
+            }
+
+            // res.json(result)
         })
         .catch( function(err){
             console.log(err)

@@ -1,5 +1,5 @@
 // import required dependencies
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 // import required files
 const conn = require('../configs/db')
@@ -20,24 +20,24 @@ module.exports = {
                         reject(new Error('username was used by other'))
                     } else {
 
-                        const hash = bcrypt.hashSync(data_signup['password'], 10);
+                        // const hash = bcrypt.hashSync(data_signup['password'], 10);
 
                         console.log('signup 2')
-                        console.log(hash)
-                        console.log(bcrypt.compareSync('', hash)); // true
-                        console.log(bcrypt.compareSync('', hash)); // false
+                        console.log(data_signup.password)
+                        // console.log(bcrypt.compareSync('', hash)); // true
+                        // console.log(bcrypt.compareSync('', hash)); // false
 
-                        const data_signup_final = {
-                            'id': data_signup['id'],
-                            'username': data_signup['username'],
-                            'password': hash,
-                            'email': data_signup['email'],
-                            'date_registered': data_signup['date_registered']
-                        }
+                        // const data_signup_final = {
+                        //     'id': data_signup['id'],
+                        //     'username': data_signup['username'],
+                        //     'password': hash,
+                        //     'email': data_signup['email'],
+                        //     'date_registered': data_signup['date_registered']
+                        // }
 
                         console.log('signup 3')
 
-                        conn.query('INSERT INTO user SET ?', data_signup_final, function(err, result){
+                        conn.query('INSERT INTO user SET ?', data_signup, function(err, result){
                             if (!err) {
                                 resolve(result)
                             } else {

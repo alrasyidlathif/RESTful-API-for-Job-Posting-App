@@ -1,6 +1,7 @@
 // import required dependencies
 const uuidv4 = require('uuid/v4');
 const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
 
 // import required files
 const signupModels = require('../models/signup')
@@ -9,19 +10,16 @@ module.exports = {
 
     signupUser: function(req, res){
 
-        const username = req.body.username
-        const password = req.body.password
-        const email = req.body.email
-
         // const validation_data = [
             // check('username').isAlphanumeric(),
             // check('password').isLength({ min: 6 }),
             // check('email').isEmail()
         // ]
 
+        console.log(req)
         const errors = validationResult(req);
-
         console.log(errors)
+        console.log('signup 0')
         // res.send('error')
 
         // is name, password, email valid
@@ -29,12 +27,18 @@ module.exports = {
             return res.status(422).json({ errors: errors.array() });
         }
 
+        const username = req.body.username
+        const password = req.body.password
+        const email = req.body.email
+
+        const hash = bcrypt.hashSync(password, 10);
+
         // if all is valid, continue send data
         const id = uuidv4();
         const data_signup = {
             id,
             username,
-            password,
+            'password': hash,
             email,
             date_registered: new Date()
         }

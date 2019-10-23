@@ -5,19 +5,19 @@ const uuidv4 = require('uuid/v4');
 const conn = require('../configs/db')
 console.log('model')
 module.exports = {
-    readJobs: function(search_data, page){
+    readJobs: function(search_data){
         console.log('ENTER TO readJobs FUNCTION..')
         return new Promise( function(resolve, reject){
 
             // get pagefrom and pageto by page
             let offset = 0;
             const limit = 5;
-            if (page != 1){
-                offset = 5*(page-1);
+            if (search_data.page != 1){
+                offset = 5*(search_data.page-1);
             }
 
             console.log('===PAGE DEF===')
-            console.log('page ' + page)
+            console.log('page ' + search_data.page)
             console.log('limit ' + limit)
             console.log('offset ' + offset)
             console.log('===PAGE DEF===')
