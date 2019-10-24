@@ -95,6 +95,11 @@ module.exports = {
             // check if company is valid
             conn.query('SELECT * FROM company WHERE id = ?', data_jobs.company_id, function(err, result){
                 console.log('create 1')
+                console.log(err)
+                console.log(result)
+                // if (result == null){
+                //     resolve({error:'company_id did not found'})
+                // }
                 console.log('create 2')
                 console.log('create 3')
                 if (result.length == 0){
@@ -178,23 +183,36 @@ module.exports = {
 
             console.log(jobsId)
 
-            if (cat_data != null){
-                conn.query(`INSERT INTO category SET ?`, cat_data, function(err, result){
-                    if (err){
-                        Error(err);
+            conn.query(`SELECT * FROM jobs WHERE id = '${jobsId}'`, [update_data], function(err, result){
+                if (!err) {
+                    if (result.length == 0){
+                        resolve({error:'jobs did not found'})
+                    }
+
+                if (cat_data != null){
+                    conn.query(`INSERT INTO category SET ?`, cat_data, function(err, result){
+                        if (err){
+                            Error(err);
+                        } else {
+                            console.log('success update category')
+                        }
+                    })
+                }
+    
+                conn.query(`UPDATE jobs SET ? WHERE id = '${jobsId}'`, [update_data], function(err, result){
+                    if (!err) {
+                        resolve(result)
                     } else {
-                        console.log('success update category')
+                        reject(new Error(err))
                     }
                 })
-            }
 
-            conn.query(`UPDATE jobs SET ? WHERE id = '${jobsId}'`, [update_data], function(err, result){
-                if (!err) {
-                    resolve(result)
+
                 } else {
                     reject(new Error(err))
                 }
             })
+
         })
     },
 

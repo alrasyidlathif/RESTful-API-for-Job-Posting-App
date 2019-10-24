@@ -46,11 +46,12 @@ module.exports = {
             }
 
             console.log('give token')
-            const token = jwt.sign({ data_login }, jwtSecret, { expiresIn: 60 }); // 60 second
+            const token = 'Alrasyid ' + jwt.sign({ data_login }, jwtSecret, { expiresIn: 300 }); // 300 second
+            // const token = jwt.sign({ data_login }, jwtSecret, { expiresIn: 300 }); // 300 second
             console.log(token)
             console.log('login 5')
             // res.json(JSON.stringify({ authorization: token }));
-            res.json({ authorization: token });
+            res.json({ Authorization: token });
             console.log('login 6')
 
             // })

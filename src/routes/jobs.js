@@ -6,13 +6,15 @@ const Route = express.Router()
 const jobsController = require('../controllers/jobs')
 const redisHelper = require('../helpers/redis')
 
+const isAuthHelper = require('../helpers/isAuth');
+
 console.log('route')
 
 Route
   	// .get('/:page', jobsController.readJobs)
   	.get('/', redisHelper.cache, jobsController.readJobs)
-  	.post('/', jobsController.createJobs)
-  	.patch('/:jobsId', jobsController.updateJobs)
-  	.delete('/:jobsId', jobsController.deleteJobs)
+  	.post('/', isAuthHelper.getTokenFromHeader, jobsController.createJobs)
+  	.patch('/:jobsId', isAuthHelper.getTokenFromHeader, jobsController.updateJobs)
+  	.delete('/:jobsId', isAuthHelper.getTokenFromHeader, jobsController.deleteJobs)
 
 module.exports = Route
