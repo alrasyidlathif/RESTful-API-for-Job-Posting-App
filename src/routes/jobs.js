@@ -1,20 +1,21 @@
 // import required dependencies
-const express = require('express')
-const Route = express.Router()
+const express = require('express');
+
+// use dependencies
+const Route = express.Router();
 
 // import required files
-const jobsController = require('../controllers/jobs')
-const redisHelper = require('../helpers/redis')
-
+const jobsController = require('../controllers/jobs');
+const redisHelper = require('../helpers/redis');
 const isAuthHelper = require('../helpers/isAuth');
 
-console.log('route')
+console.log('route'); // where I am
 
+// create endpoints
 Route
-  	// .get('/:page', jobsController.readJobs)
-  	.get('/', redisHelper.cache, jobsController.readJobs)
-  	.post('/', isAuthHelper.getTokenFromHeader, jobsController.createJobs)
-  	.patch('/:jobsId', isAuthHelper.getTokenFromHeader, jobsController.updateJobs)
-  	.delete('/:jobsId', isAuthHelper.getTokenFromHeader, jobsController.deleteJobs)
+    .get('/', redisHelper.cache, jobsController.readJobs)
+    .post('/', isAuthHelper.getToken, jobsController.createJobs)
+    .patch('/:jobsId', isAuthHelper.getToken, jobsController.updateJobs)
+    .delete('/:jobsId', isAuthHelper.getToken, jobsController.deleteJobs);
 
-module.exports = Route
+module.exports = Route;

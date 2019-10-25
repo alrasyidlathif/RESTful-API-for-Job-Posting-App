@@ -7,13 +7,13 @@ currentUserModel = require('../models/currentUser')
 
 // We are assuming that the JWT will come in the header Authorization but it could come in the req.body or in a query param, you have to decide what works best for you.
 module.exports = {
-	getTokenFromHeader: function(req, res, next){
+	getToken: function(req, res, next){
 
 		// console.log(req.headers.authorization)
 		// console.log(req.headers.authorization.split(' ')[0])
 		// console.log(req.headers.authorization.split(' ')[1])
 
-		if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Alrasyid') {
+		if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'hello00world') {
     		
 			// data_token = {
 			// 	credentialsRequired: false,
