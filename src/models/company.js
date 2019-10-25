@@ -20,11 +20,25 @@ module.exports = {
 
     createCompany: function(data_company){
         return new Promise( function(resolve, reject){
-            conn.query('INSERT INTO company SET ?', data_company, function(err, result){
-                if (!err) {
-                    resolve(result)
+            conn.query('SELECT * FROM company WHERE name = ?', data_company.name, function(err, result){
+                if (!err){
+                    if (result.length > 0){
+                        resolve({
+                            Status: 'Error',
+                            Msg: 'Company name was already used by other',
+                        })
+                        // reject(new Error('company name was used by other'))
+                    } else {
+                        conn.query('INSERT INTO company SET ?', data_company, function(err, result){
+                            if (!err) {
+                                resolve(result)
+                            } else {
+                                reject(new Error(err))
+                            }
+                        })
+                    }
                 } else {
-                    reject(new Error(err))
+                    reject( new Error(err));
                 }
             })
         })

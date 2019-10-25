@@ -33,6 +33,9 @@ module.exports = {
     companyModels.createCompany(data_company)
         .then( function(result) {
           console.log(result);
+          if (result.Status == 'Error') {
+            res.json(result);
+          }
           res.json({
             Status: 'Success',
             Msg: 'Company created',
