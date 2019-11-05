@@ -8,13 +8,35 @@ module.exports = {
   readCompany: function(req, res) {
     companyModels.readCompany()
         .then( function(result) {
-          res.json(result);
+          let msg = '';
+          if (result.length > 0) {
+            msg = 'Companies found';
+          } else {
+            msg = 'No companies found';
+          }
+          const pagination = {
+            'dataShow': result.length,
+            'limit': null,
+            'offset': 0,
+            'page': 1,
+            'totalPage': 1,
+            'totalData': result.length,
+          };
+          res.status(200).json({
+            status: 200,
+            error: false,
+            message: msg,
+            pagination,
+            result: result,
+          });
         })
         .catch( function(err) {
           console.log(err);
-          res.json({
-            Status: 'Error',
-            Msg: 'Cannot get company',
+          res.status(500).json({
+            status: 500,
+            error: true,
+            message: 'Internal server error',
+            result: {},
           });
         });
   },
@@ -33,23 +55,25 @@ module.exports = {
     companyModels.createCompany(data_company)
         .then( function(result) {
           console.log(result);
-          if (result.Status == 'Error') {
-            res.json(result);
+          if (result.error) {
+            res.status(400).json(result);
           }
-          res.json({
-            Status: 'Success',
-            Msg: 'Company created',
-            Data: {
-              Name: data_company.name,
-              Description: data_company.description,
+          res.status(201).json({
+            status: 201,
+            error: false,
+            message: 'Company was created successfully',
+            result: {
+              company: data_company,
             },
           });
         })
         .catch( function(err) {
           console.log(err);
-          res.json({
-            Status: 'Error',
-            Msg: 'Company not created',
+          res.status(500).json({
+            status: 500,
+            error: true,
+            message: 'Internal server error',
+            result: {},
           });
         });
   },
@@ -57,8 +81,8 @@ module.exports = {
 
   updateCompany: function(req, res) {
     const companyId = req.params.companyId;
-    let data = {};
-    for (var o in req.body) {
+    const data = {};
+    for (o in req.body) {
       if (Object.prototype.hasOwnProperty.call(req.body, o)) {
         console.log(o);
         console.log(req.body[o]);
@@ -68,18 +92,25 @@ module.exports = {
 
     companyModels.updateCompany(data, companyId)
         .then( function(result) {
-          console.log(result);
-          res.json({
-            Status: 'Success',
-            Msg: 'Company updated',
-            Data: data,
-          });
+          if (result.error) {
+            res.status(400).json(result);
+          } else {
+            console.log('BERHASIL');
+            res.status(200).json({
+              status: 200,
+              error: false,
+              message: 'Company was updated successfully',
+              result: data,
+            });
+          }
         })
         .catch( function(err) {
           console.log(err);
-          res.json({
-            Status: 'Error',
-            Msg: 'Company not updated',
+          res.status(500).json({
+            status: 500,
+            error: true,
+            message: 'Internal server error',
+            result: {},
           });
         });
   },
@@ -89,17 +120,22 @@ module.exports = {
     const companyId = req.params.companyId;
     companyModels.deleteCompany(companyId)
         .then( function(result) {
-          console.log(result);
-          res.json({
-            Status: 'Success',
-            Msg: 'Company and its jobs deleted',
+          if (result.error) {
+            res.status(400).json(result);
+          }
+          res.status(200).json({
+            status: 200,
+            error: false,
+            message: 'Company and its jobs was deleted successfully',
           });
         })
         .catch( function(err) {
           console.log(err);
-          res.json({
-            Status: 'Error',
-            Msg: 'Company not deleted',
+          res.status(500).json({
+            status: 500,
+            error: true,
+            message: 'Internal server error',
+            result: {},
           });
         });
   },

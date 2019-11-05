@@ -12,7 +12,9 @@ console.log('route');
 Route
     .get('/', companyController.readCompany)
     .post('/', isAuthHelper.getToken, companyController.createCompany)
-    .patch('/:companyId', isAuthHelper.getToken, companyController.updateCompany)
-    .delete('/:companyId', isAuthHelper.getToken, companyController.deleteCompany);
+    .patch('/:companyId', isAuthHelper.getToken,
+        companyController.updateCompany)
+    .delete('/:companyId', isAuthHelper.getToken,
+        companyController.deleteCompany);
 
 module.exports = Route;
