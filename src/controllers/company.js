@@ -102,7 +102,7 @@ module.exports = {
 
     // Saving file path to database
     console.log(req.file)
-    if (req.file) {
+    if (req.file.fieldname === 'logo') {
       // req.file.filename = data.name + req.file.filename
       data.logo = req.file.path
     }
