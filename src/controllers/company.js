@@ -43,8 +43,17 @@ module.exports = {
 
 
   createCompany: function(req, res) {
-    const {name, logo, location, description} = req.body;
+    const {name, location, description} = req.body;
+    let {logo} = req.body;
     const id = uuidv4();
+
+    // Saving file path to database
+    console.log(req.file)
+    if (req.file) {
+      // req.file.filename = data.name + req.file.filename
+      logo = req.file.path
+    }
+    
     const data_company = {
       id,
       name,
