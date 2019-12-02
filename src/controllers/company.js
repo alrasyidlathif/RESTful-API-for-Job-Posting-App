@@ -51,6 +51,7 @@ module.exports = {
       logo,
       location,
       description,
+      njob: 0,
     };
     companyModels.createCompany(data_company)
         .then( function(result) {
@@ -95,12 +96,16 @@ module.exports = {
           if (result.error) {
             res.status(400).json(result);
           } else {
+            data['id'] = companyId;
             console.log('BERHASIL');
+            console.log(result);
             res.status(200).json({
               status: 200,
               error: false,
               message: 'Company was updated successfully',
-              result: data,
+              result: {
+                data,
+              },
             });
           }
         })
@@ -127,6 +132,9 @@ module.exports = {
             status: 200,
             error: false,
             message: 'Company and its jobs was deleted successfully',
+            result: {
+              'id': companyId,
+            },
           });
         })
         .catch( function(err) {

@@ -166,7 +166,7 @@ module.exports = {
       id: '',
       name: category,
     };
-    console.log('DATE UPADTED');
+    console.log('DATE UPDATED');
     console.log(dataJobs.date_updated);
     jobModels.createJobs(dataJobs, dataCategory)
         .then( function(result) {

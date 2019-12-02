@@ -85,9 +85,9 @@ module.exports = {
   deleteCompany: function(companyId) {
     return new Promise( function(resolve, reject) {
       conn.query('SELECT * FROM company WHERE id = ?',
-          [companyId], function(err, result) {
-            if (!err) {
-              if (result.length == 0) {
+          [companyId], function(err0, result0) {
+            if (!err0) {
+              if (result0.length == 0) {
                 resolve({
                   status: 400,
                   error: true,
@@ -96,17 +96,24 @@ module.exports = {
                 });
               } else {
                 conn.query('DELETE FROM company WHERE id = ?',
-                    companyId, function(err, result) {
-                      if (err) {
-                        reject(err);
+                    companyId, function(err1, result1) {
+                      if (err1) {
+                        reject(err1);
                       } else {
-                        resolve(result);
+                        conn.query('DELETE FROM jobs WHERE company_id = ?',
+                            companyId, function(err, result) {
+                              if (err) {
+                                reject(err);
+                              } else {
+                                resolve(result);
+                              }
+                            });
                       }
                     }
                 );
               }
             } else {
-              reject(err);
+              reject(err0);
             }
           }
       );

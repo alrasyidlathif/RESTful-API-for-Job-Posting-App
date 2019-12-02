@@ -182,6 +182,14 @@ module.exports = {
                   result: {},
                 });
               } else {
+                conn.query(`UPDATE company SET njob = njob + 1 WHERE id = 
+                    "${dataJobs.company_id}"`, function(errnjob, resnjob) {
+                  if (errnjob) {
+                    reject(errnjob);
+                  } else {
+                    console.log('sukses tambah increase njob..');
+                  }
+                });
                 conn.query('SELECT * FROM category WHERE name = ?',
                     dataCategory.name, function(err1, result1) {
                       if (!err1) {
@@ -302,6 +310,16 @@ module.exports = {
                   result: {},
                 });
               } else {
+                conn.query(`UPDATE company INNER JOIN jobs
+                    ON company.id = jobs.company_id SET company.njob =
+                    company.njob - 1 WHERE jobs.id =
+                    "${jobsId}"`, function(errnjob, resnjob) {
+                  if (errnjob) {
+                    reject(errnjob);
+                  } else {
+                    console.log('sukses kurang decrease njob..');
+                  }
+                });
                 conn.query('DELETE FROM jobs WHERE id = ?',
                     jobsId, function(err, result) {
                       if (!err) {
