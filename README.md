@@ -1,6 +1,6 @@
-# Survei API
+# JOB POSTING API
 
-> RESTful API for Survei App
+> RESTful API for Job Posting App
 
 <p align="center">
   <a href="https://nodejs.org/">
@@ -10,47 +10,27 @@
 
 ---
 
-## Table of contents
+## Prerequiste
 
-- [API Surevei](#API-Media)
-  - [Table of contents](#table-of-contents)
-  - [TODO Tasks](#todo-tasks)
-  - [Stacks](#stacks)
-  - [Build Setup](#build-setup)
-  - [API Docs](#api-docs)
+- Node.js
+- Express.js
 
-## TODO Tasks
+## Definition
 
-- [x] CRUD Quesions
-- [x] CRUD Answers
-- [x] CRUD Event
-- [x] CRUD Submit
-- [x] Handle Input Register and Login with JOI
-- [x] Sort Users by level
-- [x] Allowed CORS
-- [x] Authentication with JWT
-
-## Stacks
-
-- NodeJS
-- MySQL
-- ExpressJS
-- JWT
-- Joi Validator
+- [x] RESTful API: A RESTful API is an application program interface (API) that uses HTTP requests to GET, PUT, POST and DELETE data.
+- [x] Node.js: Node.js is a JavaScript runtime environment that includes everything you need to execute a program written in JavaScript.
+- [x] Express.js: ExpressJS is a web application framework for Node.js that provides you with a simple API to build websites, web apps and back ends.
 
 ## Build Setup
 
 1. Clone repository
-   `$ git clone https://github.com/muhammadluth/API-MEDIA.git`
+   `$ git clone https://github.com/lathifinch/RESTful-API-for-Job-Posting-App.git`
 
 2. Install depedencies
 
 ```bash
 # with npm
 $ npm install
-
-# or with yarn
-$ yarn install
 ```
 
 3. Setup your environment variable in `.env` files (if not exists, create your own).
@@ -69,29 +49,11 @@ SECRET_JWT = YOUR_SECRET_KEY_FOR_JWT
 4. Start API server
 
 ```bash
-$ yarn watch # start and watch server
-
-$ yarn start # start server
+$ npm start # start server
 ```
-
-## API Docs
-
-- Run API : https://www.getpostman.com/collections/6fe04c5ae77bd1cf2b41
-
-  note : _Please,get native app for run my API_
 
 ---
 
-Copyright © 2019 by Muhammad Luthfi
+Copyright © 2019 by Lathif Al Rasyid
 
-RESTful API for Job Posting App
-
-Prerequiste:
-- Node.js
-- Express.js
-
-Definition:
-- RESTful API: A RESTful API is an application program interface (API) that uses HTTP requests to GET, PUT, POST and DELETE data.
-- Node.js: Node.js is a JavaScript runtime environment that includes everything you need to execute a program written in JavaScript.
-- Express.js: ExpressJS is a web application framework for Node.js that provides you with a simple API to build websites, web apps and back ends.
 
