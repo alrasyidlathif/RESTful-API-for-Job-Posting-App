@@ -49,7 +49,7 @@ module.exports = {
 
     // Saving file path to database
     console.log(req.file)
-    if (req.file) {
+    if (req.file.fieldname === 'logo') {
       // req.file.filename = data.name + req.file.filename
       logo = req.file.path
     }
@@ -98,6 +98,13 @@ module.exports = {
         console.log(req.body[o]);
         data[o] = req.body[o];
       }
+    }
+
+    // Saving file path to database
+    console.log(req.file)
+    if (req.file) {
+      // req.file.filename = data.name + req.file.filename
+      data.logo = req.file.path
     }
 
     companyModels.updateCompany(data, companyId)
