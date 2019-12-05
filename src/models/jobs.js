@@ -41,7 +41,7 @@ module.exports = {
         data, function(err1, result1) {
           if (!err1) {
             conn.query(`SELECT j.id, j.name AS jobs, j.description,
-                cat.name AS category, j.salary, j.location,
+                cat.name AS category, j.salary, j.location, com.logo AS logo,
                 com.name AS company, j.date_added, j.date_updated
                 FROM category cat
                 INNER JOIN jobs j ON j.category_id = cat.id
@@ -68,7 +68,7 @@ module.exports = {
         data, function(err1, result1) {
           if (!err1) {
             conn.query(`SELECT j.id, j.name AS jobs, j.description,
-                cat.name AS category, j.salary, j.location,
+                cat.name AS category, j.salary, j.location, com.logo AS logo,
                 com.name AS company, j.date_added, j.date_updated
                 FROM category cat
                 INNER JOIN jobs j ON j.category_id = cat.id
@@ -94,7 +94,7 @@ module.exports = {
         data, function(err1, result1) {
           if (!err1) {
             conn.query(`SELECT j.id, j.name AS jobs, j.description,
-                cat.name AS category, j.salary, j.location,
+                cat.name AS category, j.salary, j.location, com.logo AS logo,
                 com.name AS company, j.date_added, j.date_updated
                 FROM category cat
                 INNER JOIN jobs j ON j.category_id = cat.id
@@ -120,7 +120,7 @@ module.exports = {
           function(err1, result1) {
             if (!err1) {
               conn.query(`SELECT j.id, j.name AS jobs, j.description,
-                  cat.name AS category, j.salary, j.location,
+                  cat.name AS category, j.salary, j.location, com.logo AS logo,
                   com.name AS company, j.date_added, j.date_updated
                   FROM category cat
                   INNER JOIN jobs j ON j.category_id = cat.id
@@ -145,7 +145,7 @@ module.exports = {
           function(err1, result1) {
             if (!err1) {
               conn.query(`SELECT j.id, j.name AS jobs, j.description,
-                  cat.name AS category, j.salary, j.location,
+                  cat.name AS category, j.salary, j.location, com.logo AS logo,
                   com.name AS company, j.date_added, j.date_updated
                   FROM category cat
                   INNER JOIN jobs j ON j.category_id = cat.id

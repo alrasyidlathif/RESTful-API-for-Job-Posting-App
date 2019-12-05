@@ -49,9 +49,12 @@ module.exports = {
 
     // Saving file path to database
     console.log(req.file)
-    if (req.file.fieldname === 'logo') {
+    // if (req.file.fieldname === 'logo') {
+    if (req.file) {
+      // const host = req.hostname;
+      logo = req.protocol+'://'+req.hostname+':'+process.env.PORT+'/src/helpers/media/img/company_logo/'+req.file.filename;
       // req.file.filename = data.name + req.file.filename
-      logo = req.file.path
+      // logo = req.file.path
     }
     
     const data_company = {
@@ -96,15 +99,21 @@ module.exports = {
       if (Object.prototype.hasOwnProperty.call(req.body, o)) {
         console.log(o);
         console.log(req.body[o]);
-        data[o] = req.body[o];
+        console.log('========== update company ==========')
+        if (o !== 'logo') {
+          data[o] = req.body[o];
+        }
       }
     }
 
     // Saving file path to database
     console.log(req.file)
-    if (req.file.fieldname === 'logo') {
+    // if (req.file.fieldname === 'logo') {
+    if (req.file) {
       // req.file.filename = data.name + req.file.filename
-      data.logo = req.file.path
+      // const host = req.hostname;
+      data.logo = req.protocol+'://'+req.hostname+':'+process.env.PORT+'/src/helpers/media/img/company_logo/'+req.file.filename;
+      // data.logo = req.file.path
     }
 
     companyModels.updateCompany(data, companyId)

@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const path = require('path');
 
 // import required files
 const configs = require('./src/configs/configs');
@@ -25,5 +26,7 @@ app.use('/', routerNav);
 app.listen(port, function() {
   console.log(`\n Server listening on port ${port} \n`);
 });
+
+app.use('/src/helpers/media/img/company_logo', express.static(path.join(__dirname, '/src/helpers/media/img/company_logo')));
 
 module.exports = app;
