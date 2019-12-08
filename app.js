@@ -27,6 +27,7 @@ app.listen(port, function() {
   console.log(`\n Server listening on port ${port} \n`);
 });
 
+app.enable('trust proxy');
 app.use('/src/helpers/media/img/company_logo', express.static(path.join(__dirname, '/src/helpers/media/img/company_logo')));
 
 module.exports = app;

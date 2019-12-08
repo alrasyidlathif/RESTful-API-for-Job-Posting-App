@@ -52,7 +52,7 @@ module.exports = {
     // if (req.file.fieldname === 'logo') {
     if (req.file) {
       // const host = req.hostname;
-      logo = req.protocol+'://'+req.hostname+':'+process.env.PORT+'/src/helpers/media/img/company_logo/'+req.file.filename;
+      logo = req.protocol+'://'+req.hostname+'/src/helpers/media/img/company_logo/'+req.file.filename;
       // req.file.filename = data.name + req.file.filename
       // logo = req.file.path
     }
@@ -112,7 +112,7 @@ module.exports = {
     if (req.file) {
       // req.file.filename = data.name + req.file.filename
       // const host = req.hostname;
-      data.logo = req.protocol+'://'+req.hostname+':'+process.env.PORT+'/src/helpers/media/img/company_logo/'+req.file.filename;
+      data.logo = req.protocol+'://'+req.hostname+'/src/helpers/media/img/company_logo/'+req.file.filename;
       // data.logo = req.file.path
     }
 
